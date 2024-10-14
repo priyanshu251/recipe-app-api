@@ -1,0 +1,10 @@
+[flake8]
+
+exclude=
+  migrations,
+  __pycache__,
+  manage.py,
+  setting.py
+
+
+# these are the file that are not be checked or linter by flake8
