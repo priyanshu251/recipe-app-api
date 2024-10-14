@@ -1,5 +1,3 @@
-version: "3.9" # specify docker-compose version
-
 services:      # services to run
   app:         # name of the service
     build:     # build the image using the Dockerfile in the current directory
