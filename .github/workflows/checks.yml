@@ -9,13 +9,13 @@ jobs:         # jobs to run when triggerd
     runs-on: ubuntu-20.04     # run the job on ubuntu 20.04
     steps:
       - name: Login to Docker Hub      # name of the step, defines the steps to login to Docker Hub
-        uses: docker/login-action@v2       # use the docker/login-action action to login to Docker Hub 
+        uses: docker/login-action@v1       # use the docker/login-action action to login to Docker Hub 
         with:                                  # use these as inputs to the action
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout                 # name of the step, defines the steps to checkout the code
         uses: actions/checkout@v2         # use the actions/checkout action to checkout the code
       - name: Test                     # name of the step, defines the steps to run the tests
-        run: docker-compose run app sh -c "python manage.py test"  # command to run the tests in python through docker-compose
+        run: docker-compose run --rm app sh -c "python manage.py test"  # command to run the tests in python through docker-compose
       - name: Lint              # name of the step, defines the steps to run the lint
-        run: docker-compose run app sh -c "flake8"    # command to run the lint in python using flake8 through docker-compose
+        run: docker-compose run --rm app sh -c "flake8"    # command to run the lint in python using flake8 through docker-compose
