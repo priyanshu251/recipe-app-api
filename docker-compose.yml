@@ -13,3 +13,28 @@ services:      # services to run
                    # this is used to share the code between the host and the container and to reflect the changes in the code without rebuilding the image
     command: >     # run the command to start the serve
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db         # host name of the database service to which app service will connect
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASSWORD=changeme
+    depends_on:
+      - db                   # wait for the db service to be ready before starting the app service
+
+  db:          # name of the service
+    image: postgres:13-alpine # use the postgres:13alpine image from docker hub
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data # maps the dev-db-data volume to the /var/lib/postgresql/data directory in the container
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+volumes:
+  dev-db-data: 
+ 
+#  The  docker-compose.yml  file defines two services:  app  and  db . The  app  service is built using the Dockerfile in the current directory. The  app  service runs a Django application and connects to the  db  service. The  db  service uses the  postgres:13-alpine  image from Docker Hub. 
+
+#  The  app  service uses the  dev-db-data  volume to store the database data. The  app  service maps the  ./app  directory on the host to the  /app  directory in the container. This is used to share the code between the host and the container. 
+
+#  The  app  service runs the command  python manage.py runserver
