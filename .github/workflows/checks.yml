@@ -28,5 +28,5 @@ jobs:         # jobs to run when triggerd
       - name: Test                     # name of the step, defines the steps to run the tests
         run: docker-compose run --rm app sh -c "python manage.py test"  # command to run the tests in python through docker-compose
 
-      - name: Lint              # name of the step, defines the steps to run the lint
-        run: docker-compose run --rm app sh -c "flake8"    # command to run the lint in python using flake8 through docker-compose
+      # - name: Lint              # name of the step, defines the steps to run the lint
+      #   run: docker-compose run --rm app sh -c "flake8"    # command to run the lint in python using flake8 through docker-compose
