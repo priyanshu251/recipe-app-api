@@ -11,8 +11,10 @@ services:      # services to run
     volumes:
       - ./app:/app # maps the app directory in the host to the /app directory in the container
                    # this is used to share the code between the host and the container and to reflect the changes in the code without rebuilding the image
-    command: >     # run the command to start the serve
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+    command: >     # run the command to start the serve. commands will be runned in order
+      sh -c "python manage.py wait_for_db &&                  
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db         # host name of the database service to which app service will connect
       - DB_NAME=devdb

@@ -26,7 +26,7 @@ jobs:         # jobs to run when triggerd
         uses: actions/checkout@v4.2.1         # use the actions/checkout action to checkout the code
 
       - name: Test                     # name of the step, defines the steps to run the tests
-        run: docker-compose run --rm app sh -c "python manage.py test"  # command to run the tests in python through docker-compose
+        run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"  # command to run the tests in python through docker-compose. Ensuring that wait for db is run before running the tests.
 
       # - name: Lint              # name of the step, defines the steps to run the lint
       #   run: docker-compose run --rm app sh -c "flake8"    # command to run the lint in python using flake8 through docker-compose
